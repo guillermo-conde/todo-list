@@ -24,7 +24,7 @@ const Input = ( {label, buttonLabel,...props} ) => {
         <Container>
             <Label>{label}</Label>
             <MyInput {...field} { ...props } ></MyInput>
-            <Button>{buttonLabel}</Button>
+            <Button bg="#029BCE" >{buttonLabel}</Button>
         </Container>  
     )
 }

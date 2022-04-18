@@ -41,9 +41,9 @@ function App() {
           <tr>
             <Td>1</Td>
             <Td>delectus aut autem</Td>
-            <Td><Button>Completo / Incompleto</Button></Td>
-            <Td><Button>Actualizar</Button></Td>
-            <Td><Button>Eliminar</Button></Td>
+            <Td><Button bg="#029BCE" >Completo / Incompleto</Button></Td>
+            <Td><Button bg="#81C848" >Actualizar</Button></Td>
+            <Td><Button bg="#D63333" >Eliminar</Button></Td>
           </tr>
         </tbody>
       </Table>
