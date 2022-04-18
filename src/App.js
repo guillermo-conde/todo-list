@@ -1,6 +1,11 @@
 import Header from "./components/Header";
 import {Formik, Form} from 'formik'
 import Input from "./components/Input";
+import Table from "./components/Table";
+import Thead from "./components/Thead";
+import Th from "./components/Th";
+import Td from "./components/Td";
+import Button from "./components/Button";
 
 function App() {
   return (
@@ -16,36 +21,32 @@ function App() {
         </Form>
       </Formik>
 
-      <table>
-        <thead>
+      <Table>
+        <Thead>
           <tr>
-            <th>
+            <Th>
               ID
-            </th>
-            <th>
+            </Th>
+            <Th>
               Actividad
-            </th>
-            <th>
+            </Th>
+            <Th>
               Completo/Incompleto
-            </th>
-            <th>
-              
-            </th>
-            <th>
-              
-            </th>
+            </Th>
+            <Th/>
+            <Th/>
           </tr>
-        </thead>
+        </Thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>delectus aut autem</td>
-            <td><button>Completo / Incompleto</button></td>
-            <td><button>Actualizar</button></td>
-            <td><button>Eliminar</button></td>
+            <Td>1</Td>
+            <Td>delectus aut autem</Td>
+            <Td><Button>Completo / Incompleto</Button></Td>
+            <Td><Button>Actualizar</Button></Td>
+            <Td><Button>Eliminar</Button></Td>
           </tr>
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

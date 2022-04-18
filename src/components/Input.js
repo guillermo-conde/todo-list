@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useField } from "formik";
+import Button from "./Button";
 
 const Container = styled.div`
     display: flex; 
@@ -16,13 +17,6 @@ const MyInput = styled.input`
     border-radius: 5px;
     border: solid 2px #B0B6B8;
     padding: 5px 5px;
-`
-const Button = styled.button`
-    color: #fff;
-    background: #029BCE;
-    border: none;
-    border-radius: 5px; 
-    padding: 5px 10px;
 `
 const Input = ( {label, buttonLabel,...props} ) => {
     const [field] = useField(props);
