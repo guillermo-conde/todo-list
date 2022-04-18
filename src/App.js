@@ -1,14 +1,20 @@
 import Header from "./components/Header";
+import {Formik, Form} from 'formik'
+import Input from "./components/Input";
 
 function App() {
   return (
     <div>
       <Header/>
 
-      <form>
-        <input type="text"></input>
-        <button type="submit" >Agregar</button>
-      </form>
+      <Formik initialValues = {{
+          activity: ''
+        }}
+        onsubmit = {() => {}}>
+        <Form>
+          <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
+        </Form>
+      </Formik>
 
       <table>
         <thead>
