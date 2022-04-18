@@ -6,8 +6,10 @@ import Thead from "./components/Thead";
 import Th from "./components/Th";
 import Td from "./components/Td";
 import Button from "./components/Button";
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
   return (
     <div>
       <Header/>
@@ -15,7 +17,7 @@ function App() {
       <Formik initialValues = {{
           activity: ''
         }}
-        onsubmit = {() => {}}>
+        onsubmit = {() => {}}> 
         <Form>
           <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
         </Form>
@@ -42,7 +44,7 @@ function App() {
             <Td>1</Td>
             <Td>delectus aut autem</Td>
             <Td><Button bg="#029BCE" >Completo / Incompleto</Button></Td>
-            <Td><Button bg="#81C848" >Actualizar</Button></Td>
+            <Td><Button bg="#81C848" onClick={() => dispatch({type:'addActivity'})}>Actualizar</Button></Td>
             <Td><Button bg="#D63333" >Eliminar</Button></Td>
           </tr>
         </tbody>
