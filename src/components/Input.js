@@ -23,8 +23,8 @@ const Input = ( {label, buttonLabel,...props} ) => {
     return(
         <Container>
             <Label>{label}</Label>
-            <MyInput {...field} { ...props } ></MyInput>
-            <Button bg="#029BCE" >{buttonLabel}</Button>
+            <MyInput {...field} { ...props }></MyInput>
+            <Button bg="#029BCE"  type="submit">{buttonLabel}</Button>
         </Container>  
     )
 }

@@ -6,10 +6,25 @@ import Thead from "./components/Thead";
 import Th from "./components/Th";
 import Td from "./components/Td";
 import Button from "./components/Button";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const todos = useSelector(state => state)
+
+  const handleSubmit = ({activity}, onSubmitProps) => {
+    if (activity.trim() === "") {
+      return
+    }
+    let Id = Math.random()
+    dispatch({type:'addActivity', payload:{id:Id, title: activity.trim(), completed:false}})
+    onSubmitProps.setSubmitting(false)
+    onSubmitProps.resetForm()         
+  }
+
+
   return (
     <div>
       <Header/>
@@ -17,7 +32,7 @@ function App() {
       <Formik initialValues = {{
           activity: ''
         }}
-        onsubmit = {() => {}}> 
+        onSubmit = {handleSubmit}> 
         <Form>
           <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
         </Form>
@@ -26,9 +41,6 @@ function App() {
       <Table>
         <Thead>
           <tr>
-            <Th>
-              ID
-            </Th>
             <Th>
               Actividad
             </Th>
@@ -40,13 +52,18 @@ function App() {
           </tr>
         </Thead>
         <tbody>
-          <tr>
-            <Td>1</Td>
-            <Td>delectus aut autem</Td>
-            <Td><Button bg="#029BCE" >Completo / Incompleto</Button></Td>
-            <Td><Button bg="#81C848" onClick={() => dispatch({type:'addActivity'})}>Actualizar</Button></Td>
-            <Td><Button bg="#D63333" >Eliminar</Button></Td>
-          </tr>
+
+          {todos.activities.map(todo => {
+            return (
+              <tr key={todo.id}>
+                <Td>{todo.title}</Td>
+                <Td><Button bg="#029BCE" >{todo.completed.toString()}</Button></Td>
+                <Td><Button bg="#81C848" onClick={() => dispatch({type:'addActivity'})}>Actualizar</Button></Td>
+                <Td><Button bg="#D63333" >Eliminar</Button></Td>
+              </tr>
+            )
+          })}
+
         </tbody>
       </Table>
     </div>
