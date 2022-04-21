@@ -11,13 +11,17 @@ export const initialReducer = (state = initialState, action) => {
                 ...state,
                 activities: state.activities.concat({ ...action.payload })
             }
-        case 'deleteActivity':
-            console.log('Eliminando actividad')
-            // return {
-            //     ...state,
-            //     activities: state.activities.concat({ ...action.payload })
-            // }
-            return state
+        case 'updateStatusActivity':
+            const newActivities = state.activities.map(activity => {
+                if (activity.id === action.payload.id) {
+                    return {...activity, completed: !activity.completed}
+                }
+                return activity
+            })
+            return {
+                ...state,
+                activities: newActivities
+            }
         default:
             return state
     }
