@@ -4,15 +4,20 @@ import Input from "./components/Input";
 import Table from "./components/Table";
 import Thead from "./components/Thead";
 import Th from "./components/Th";
-import Td from "./components/Td";
-import Button from "./components/Button";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import TodoItem from "./components/TodoItem";
+import { useEffect } from "react";
+import { fetchThunk } from "./features/fetchThunk";
 
 
 
 function App() {
   const dispatch = useDispatch()
   const todos = useSelector(state => state)
+
+  useEffect(() => {
+    dispatch(fetchThunk())
+  }, [dispatch])
 
   const handleSubmit = ({activity}, onSubmitProps) => {
     if (activity.trim() === "") {
@@ -21,9 +26,8 @@ function App() {
     let Id = Math.random()
     dispatch({type:'addActivity', payload:{id:Id, title: activity.trim(), completed:false}})
     onSubmitProps.setSubmitting(false)
-    onSubmitProps.resetForm()         
+    onSubmitProps.resetForm()      
   }
-
 
   return (
     <div>
@@ -45,7 +49,10 @@ function App() {
               Actividad
             </Th>
             <Th>
-              Completo/Incompleto
+              Estatus
+            </Th>
+            <Th>
+              Actualizar a:
             </Th>
             <Th/>
             <Th/>
@@ -53,16 +60,7 @@ function App() {
         </Thead>
         <tbody>
 
-          {todos.activities.map(todo => {
-            return (
-              <tr key={todo.id}>
-                <Td>{todo.title}</Td>
-                <Td><Button bg="#029BCE" >{todo.completed.toString()}</Button></Td>
-                <Td><Button bg="#81C848" onClick={() => dispatch({type:'addActivity'})}>Actualizar</Button></Td>
-                <Td><Button bg="#D63333" >Eliminar</Button></Td>
-              </tr>
-            )
-          })}
+          {todos.activities.map(todo => <TodoItem key={todo.id} todo={todo}></TodoItem>)}
 
         </tbody>
       </Table>
