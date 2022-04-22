@@ -7,6 +7,8 @@ const Container = styled.div`
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    width: 50%;
+    justify-self: center;
 `
 const Label = styled.label`
     color: #000;

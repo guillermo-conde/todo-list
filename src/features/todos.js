@@ -1,28 +1,45 @@
-const initialState = {
-    activities: []
-}
+import { combineReducers } from "redux"
 
-export const initialReducer = (state = initialState, action) => {
+
+const entitiesReducer = (state = [], action) => {
     switch (action.type) {
         case 'fullFilledActivity':
-            return {activities: action.payload}
+            return  action.payload 
         case 'addActivity':
-            return {
-                ...state,
-                activities: state.activities.concat({ ...action.payload })
-            }
+            return state.concat({ ...action.payload })
         case 'updateStatusActivity':
-            const newActivities = state.activities.map(activity => {
+            const newActivities = state.map(activity => {
                 if (activity.id === action.payload.id) {
-                    return {...activity, completed: !activity.completed}
+                    return { ...activity, completed: !activity.completed }
                 }
                 return activity
             })
-            return {
-                ...state,
-                activities: newActivities
-            }
+            return newActivities
+        case 'deleteActivity':
+            let index = state.findIndex((todo) => todo.id === action.payload.id)
+            const newActivitiesDeleted = state
+            newActivitiesDeleted.splice(index, 1)
+            return [...newActivitiesDeleted]
         default:
             return state
     }
 }
+
+
+const statusReducer = (state = {status: '', message: ''}, action) => {
+    switch (action.type) {
+        case 'statusPending':
+            return {status: 'loading', message:'cargando'}
+        case 'statusSucceded':
+            return {status: 'success', message:'exito'}
+        case 'statusRejected':
+            return {status: 'error', message: action.payload.error}
+        default:
+            return state
+    }
+}
+
+export const mainReducer = combineReducers({
+    activities: entitiesReducer,
+    status: statusReducer
+})

@@ -6,7 +6,6 @@ import styled from "styled-components"
 const Tr = styled.tr`
     background: ${props => props.completed ? '#78FD89': '#fff'};
 `
-
 const TodoItem = ({todo}) => {
     const dispatch = useDispatch();
     return (
@@ -19,8 +18,10 @@ const TodoItem = ({todo}) => {
                     >{todo.completed ? 'Pendiente' : 'Completado'}
                 </Button>
             </Td>
-            <Td><Button bg="#81C848" >Actualizar</Button></Td>
-            <Td><Button bg="#D63333" >Eliminar</Button></Td>
+            <Td><Button bg="#D63333" 
+             onClick={() => dispatch({type:'deleteActivity', payload: todo })}>
+                Eliminar
+            </Button></Td>
         </Tr>
     )
 }

@@ -8,12 +8,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import TodoItem from "./components/TodoItem";
 import { useEffect } from "react";
 import { fetchThunk } from "./features/fetchThunk";
+import Loader from "./components/Loader";
+import ErrorMessage from "./components/ErrorMessage";
 
 
 
 function App() {
   const dispatch = useDispatch()
-  const todos = useSelector(state => state)
+  const todos = useSelector(state => state.activities)
+  const status = useSelector(state => state.status)
 
   useEffect(() => {
     dispatch(fetchThunk())
@@ -29,43 +32,102 @@ function App() {
     onSubmitProps.resetForm()      
   }
 
-  return (
-    <div>
-      <Header/>
 
-      <Formik initialValues = {{
-          activity: ''
-        }}
-        onSubmit = {handleSubmit}> 
-        <Form>
-          <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
-        </Form>
-      </Formik>
+  if (status.status === 'loading') {
+    return (
+      <div>
+        <Header/>
+  
+        <Formik initialValues = {{
+            activity: ''
+          }}
+          onSubmit = {handleSubmit}> 
+          <Form>
+            <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
+          </Form>
+        </Formik>                    
+            <Loader/>
+      </div>
+    );
+  } else if (status.status === 'error'){
+    return (
+      <div>
+        <Header/>
+  
+        <Formik initialValues = {{
+            activity: ''
+          }}
+          onSubmit = {handleSubmit}> 
+          <Form>
+            <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
+          </Form>
+        </Formik>
+  
+          <ErrorMessage></ErrorMessage>
+        <Table>
+          <Thead>
+            <tr>
+              <Th>
+                Actividad
+              </Th>
+              <Th>
+                Estatus
+              </Th>
+              <Th>
+                Actualizar a:
+              </Th>
+              <Th/>
+              <Th/>
+            </tr>
+          </Thead>
+          <tbody>
+                    
+            {todos.map(todo => <TodoItem key={todo.id} todo={todo}/>)}
+            
+          </tbody>
+        </Table>
+      </div>
+    );
+  }
+    return (
+      <div>
+        <Header/>
+  
+        <Formik initialValues = {{
+            activity: ''
+          }}
+          onSubmit = {handleSubmit}> 
+          <Form>
+            <Input label="Nueva actividad" name="activity" type="text" buttonLabel="Registrar"/>
+          </Form>
+        </Formik>
+  
+        <Table>
+          <Thead>
+            <tr>
+              <Th>
+                Actividad
+              </Th>
+              <Th>
+                Estatus
+              </Th>
+              <Th>
+                Actualizar a:
+              </Th>
+              <Th/>
+              <Th/>
+            </tr>
+          </Thead>
+          <tbody>
+                    
+            {todos.map(todo => <TodoItem key={todo.id} todo={todo}/>)}
+  
+          </tbody>
+        </Table>
+      </div>
+    );
 
-      <Table>
-        <Thead>
-          <tr>
-            <Th>
-              Actividad
-            </Th>
-            <Th>
-              Estatus
-            </Th>
-            <Th>
-              Actualizar a:
-            </Th>
-            <Th/>
-            <Th/>
-          </tr>
-        </Thead>
-        <tbody>
-
-          {todos.activities.map(todo => <TodoItem key={todo.id} todo={todo}></TodoItem>)}
-
-        </tbody>
-      </Table>
-    </div>
-  );
+  
 }
 
 export default App;
